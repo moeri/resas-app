@@ -1,8 +1,8 @@
-import './App.css';
-import React, { useState, useEffect } from 'react';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
-import apiKey from './apiKey';
+import "./App.css";
+import React, { useState, useEffect } from "react";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import apiKey from "./apiKey";
 
 export const App = () => {
   // 都道府県ごとにチェックされたかどうかを保持する配列
@@ -14,9 +14,10 @@ export const App = () => {
   // Highchartsに表示するデータの配列
   const [series, setSeries] = useState([]);
 
+  // APIで取得できる最も昔の年
   const startyear = 1980;
 
-  // チェックボックスの選択状態を反転する関数
+  // クリック時にチェックボックスの選択状態を反転する関数
   const changeSelection = (index) => {
     const selectedCopy = selected.slice();
     selectedCopy[index] = !selectedCopy[index];
@@ -24,25 +25,31 @@ export const App = () => {
 
     if (!selected[index]) {
       // チェックされていなかった場合はデータを取得するAPIを呼び出す
-      fetch(`https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=${index + 1}`, {
-        headers: { 'X-API-KEY': apiKey }
-      })
-      .then(response => response.json())
-      .then(res => {
-        const boundaryyear = Number(res.result.boundaryYear);
-        console.log(boundaryyear)
-        const i = (boundaryyear - startyear) / 5 + 1
-        const data = res.result.data[0].data.map((d) => d.value);
-        const resSeries = {
-          name: prefectures[index].prefName,
-          data: data.slice(0, i)
-        };
-        setSeries([...series, resSeries]);
-      });
+      fetch(
+        `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=${
+          index + 1
+        }`,
+        {
+          headers: { "X-API-KEY": apiKey },
+        }
+      )
+        .then((response) => response.json())
+        .then((res) => {
+          // 実績値と推計値の区切り年
+          const boundaryyear = Number(res.result.boundaryYear);
+          const i = (boundaryyear - startyear) / 5 + 1;
+
+          const data = res.result.data[0].data.map((d) => d.value);
+          const resSeries = {
+            name: prefectures[index].prefName,
+            data: data.slice(0, i),
+          };
+          setSeries([...series, resSeries]);
+        });
     } else {
       // チェック済みの場合はデータを配列から削除する
       const seriesCopy = series.slice();
-      for (let i = 0; i < seriesCopy.length; i++) {
+      for (let i = 0; i < seriesCopy.length; i += 1) {
         if (seriesCopy[i].name === prefectures[index].prefName) {
           seriesCopy.splice(i, 1);
         }
@@ -53,11 +60,11 @@ export const App = () => {
 
   // ページがロードされた時に都道府県の一覧を取得するAPIを呼び出す
   useEffect(() => {
-    fetch('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
-      headers: { 'X-API-KEY': apiKey }
+    fetch("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
+      headers: { "X-API-KEY": apiKey },
     })
-      .then(response => response.json())
-      .then(res => {
+      .then((response) => response.json())
+      .then((res) => {
         setPrefectures(res.result);
       });
   }, []);
@@ -65,7 +72,10 @@ export const App = () => {
   // チェックボックスを描画する関数
   const renderItem = (props) => {
     return (
-      <div key={props.prefCode} style={{ margin: '5px', display: 'inline-block' }}>
+      <div
+        key={props.prefCode}
+        style={{ margin: "5px", display: "inline-block" }}
+      >
         <input
           type="checkbox"
           checked={selected[props.prefCode - 1]}
@@ -78,33 +88,39 @@ export const App = () => {
 
   // Highchartsに渡すオプションのオブジェクト
   const options = {
-    title : {
-      text: null
+    title: {
+      text: null,
     },
-    xAxis : {
-      title: {text: "年度"}
+    xAxis: {
+      title: {
+        text: "年度",
+        align: "high",
+      },
     },
-    yAxis : {
-      title: {text: "人口数"}
+    yAxis: {
+      title: {
+        text: "人口数",
+        align: "high",
+      },
     },
     plotOptions: {
       series: {
         label: {
-          connectorAllowed: false
+          connectorAllowed: false,
         },
         pointInterval: 5,
         pointStart: startyear,
       },
     },
-    series: series,
+    series,
   };
 
   Highcharts.setOptions({
     lang: {
       numericSymbols: null,
     },
-  })
-  
+  });
+
   return (
     <div>
       <h1>都道府県別の総人口推移グラフ</h1>
