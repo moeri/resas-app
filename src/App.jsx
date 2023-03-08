@@ -1,10 +1,11 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import apiKey from "./apiKey";
 
-export const App = () => {
+const App = () => {
   // 都道府県ごとにチェックされたかどうかを保持する配列
   const [selected, setSelected] = useState(Array(47).fill(false));
 
@@ -130,3 +131,12 @@ export const App = () => {
     </div>
   );
 };
+App.propTypes = {
+  prefCode: PropTypes.string,
+  prefName: PropTypes.string,
+};
+App.defaultProps = {
+  prefCode: null,
+  prefName: null,
+};
+export default App;
