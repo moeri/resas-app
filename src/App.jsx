@@ -92,6 +92,9 @@ const App = () => {
     title: {
       text: null,
     },
+    chart: {
+      marginTop: 50,
+    },
     xAxis: {
       title: {
         text: "年度",
@@ -123,12 +126,14 @@ const App = () => {
   });
 
   return (
-    <div>
-      <h1>都道府県別の総人口推移グラフ</h1>
-      <h2>都道府県</h2>
-      {Object.keys(prefectures).map((i) => renderItem(prefectures[i]))}
-      <HighchartsReact highcharts={Highcharts} options={options} />
-    </div>
+    <>
+      <div className="title">都道府県別の総人口推移グラフ</div>
+      <div className="contents">
+        <div>都道府県</div>
+        {Object.keys(prefectures).map((i) => renderItem(prefectures[i]))}
+        <HighchartsReact highcharts={Highcharts} options={options} />
+      </div>
+    </>
   );
 };
 App.propTypes = {
