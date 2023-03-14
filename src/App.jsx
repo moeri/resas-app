@@ -94,6 +94,8 @@ const App = () => {
     },
     chart: {
       marginTop: 50,
+      marginLeft: 70,
+      marginRight: 20,
     },
     xAxis: {
       title: {
@@ -105,6 +107,9 @@ const App = () => {
       title: {
         text: "人口数",
         align: "high",
+        rotation: 0,
+        x: 50,
+        y: -25,
       },
     },
     plotOptions: {
@@ -121,7 +126,7 @@ const App = () => {
 
   Highcharts.setOptions({
     lang: {
-      numericSymbols: null,
+      numericSymbols: ["千", "百万"],
     },
   });
 
@@ -129,8 +134,12 @@ const App = () => {
     <>
       <div className="title">都道府県別の総人口推移グラフ</div>
       <div className="contents">
-        <div>都道府県</div>
-        {Object.keys(prefectures).map((i) => renderItem(prefectures[i]))}
+        <div className="subtitle">都道府県</div>
+        <div className="scroll">
+          <div className="box">
+            {Object.keys(prefectures).map((i) => renderItem(prefectures[i]))}
+          </div>
+        </div>
         <HighchartsReact highcharts={Highcharts} options={options} />
       </div>
     </>

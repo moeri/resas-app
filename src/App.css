@@ -5,7 +5,20 @@
   font-size: 250%;
   background-color: darkslategray;
 }
+.subtitle{
+  padding: 5px;
+  font-size: 120%;
+  font-weight: bold;
+}
 .contents {
   max-width: 1000px;
   margin: 0 auto;
+}
+@media screen and (max-width:480px) {
+  .scroll {
+    overflow-x: scroll;
+  }
+  .box{
+      width: 1000px;
+  }
 }

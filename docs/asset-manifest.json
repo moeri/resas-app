@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/resas-app/static/css/main.56416583.css",
-    "main.js": "/resas-app/static/js/main.01598912.js",
+    "main.css": "/resas-app/static/css/main.632e6fb3.css",
+    "main.js": "/resas-app/static/js/main.78fc4d0a.js",
     "index.html": "/resas-app/index.html",
-    "main.56416583.css.map": "/resas-app/static/css/main.56416583.css.map",
-    "main.01598912.js.map": "/resas-app/static/js/main.01598912.js.map"
+    "main.632e6fb3.css.map": "/resas-app/static/css/main.632e6fb3.css.map",
+    "main.78fc4d0a.js.map": "/resas-app/static/js/main.78fc4d0a.js.map"
   },
   "entrypoints": [
-    "static/css/main.56416583.css",
-    "static/js/main.01598912.js"
+    "static/css/main.632e6fb3.css",
+    "static/js/main.78fc4d0a.js"
   ]
 }
