@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/resas-app/static/css/main.56416583.css",
+    "main.js": "/resas-app/static/js/main.01598912.js",
+    "index.html": "/resas-app/index.html",
+    "main.56416583.css.map": "/resas-app/static/css/main.56416583.css.map",
+    "main.01598912.js.map": "/resas-app/static/js/main.01598912.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.56416583.css",
+    "static/js/main.01598912.js"
+  ]
+}
